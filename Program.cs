@@ -9,6 +9,7 @@ public class Program
         builder.Services
         .AddSingleton<DataClient>()
         .AddSingleton<PersonService>()
+        .AddSingleton<ProductService>()
         .AddCors(options =>
         {
             options.AddPolicy("AllowAll",
@@ -17,8 +18,7 @@ public class Program
                     .AllowAnyHeader()
                     .AllowAnyMethod());
         });
-
-
+        
         var app = builder.Build();
         app.UseCors("AllowAll");
         //Test methods
@@ -28,6 +28,9 @@ public class Program
         app.MapGet("/person/GetByName", (PersonService personService, [FromQuery] string name) => Results.Ok(personService.GetPersonByName(name)));
         app.MapGet("/person/GetByEmpType", (PersonService personService, [FromQuery] string emplType) => Results.Ok(personService.GetPersonByPersonType(emplType)));
         app.MapGet("/person/GetByNameAndType", (PersonService personService, [FromQuery] string name, string emplType) => Results.Ok(personService.GetPersonByNameAndPersonType(name, emplType)));
+        app.MapGet("/product", (ProductService productService) => Results.Ok(productService.GetAll()));
+        app.MapGet("/product/GetByCatType", (ProductService productService, [FromQuery] string catType) => Results.Ok(productService.GetProductsByCategoryType(catType)));
+        app.MapGet("/product/GetByName", (ProductService productService, [FromQuery] string name) => Results.Ok(productService.GetProductByName(name)));
         //Person methods
         //Products methods
         app.Run();

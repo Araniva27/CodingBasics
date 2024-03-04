@@ -22,7 +22,7 @@ public class PersonService
         try{
             var result = _connection.GetResultsFromQuery<PersonModel>(
                 "SELECT * " +
-                "FROM [AdventureWorks2022].[HumanResources].[vEmployee] " +
+                "FROM [AdventureWorks2019].[HumanResources].[vEmployee] " +
                 $"WHERE CONCAT(FirstName,' ',MiddleName,' ',LastName) LIKE '%{name}%'", Map);
             return result;
         }catch (Exception ex){
@@ -35,7 +35,7 @@ public class PersonService
         try{
             var result = _connection.GetResultsFromQuery<PersonModel>(
                 "SELECT A.* " +
-                "FROM [AdventureWorks2022].[HumanResources].[vEmployee] A " +
+                "FROM [AdventureWorks2019].[HumanResources].[vEmployee] A " +
                 "INNER JOIN Person.Person B ON a.BusinessEntityID = b.BusinessEntityID " +
                 $"WHERE B.PersonType = '{personType}'", Map);
             return result;
@@ -49,7 +49,7 @@ public class PersonService
         try{
             var result = _connection.GetResultsFromQuery<PersonModel>(
                 "SELECT * " +
-                $"FROM [AdventureWorks2022].[HumanResources].[vEmployee] A " +
+                $"FROM [AdventureWorks2019].[HumanResources].[vEmployee] A " +
                 $"INNER JOIN Person.Person B ON A.BusinessEntityID = B.BusinessEntityID " +
                 $"WHERE " +
                 $"    ('{name}' ='' OR '{name}' IS NULL OR CONCAT(A.FirstName, ' ', A.MiddleName, ' ', A.LastName) LIKE '%{name}%') " +
